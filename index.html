@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS416 Titanic: A Data Story</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-annotation@2.5.1/d3-annotation.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">RMS Titanic: A Data Visualization Narrative</h1>
+            <p class="subtitle">CS416: A martini glass visualization narrative exploring some passenger records **PLEASE
+                VIEW
+                WITH MAXIMIZED SCREEN**</p>
+        </header>
+
+        <div class="progress-indicator">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="scene-dots">
+                <div class="scene-dot active" data-scene="1">1</div>
+                <div class="scene-dot" data-scene="2">2</div>
+                <div class="scene-dot" data-scene="3">3</div>
+                <div class="scene-dot" data-scene="4">4</div>
+            </div>
+        </div>
+
+        <main class="visualization-container">
+            <!-- Scene 1 -->
+            <section id="scene-1" class="scene active">
+                <div class="scene-content">
+                    <div class="ship-header">
+                        <div class="ship-silhouette">🚢</div>
+                        <h2 class="scene-title">Scene 1: Background</h2>
+                    </div>
+
+                    <p class="scene-description">
+                        On the night of April 14, 1912, the Titanic famously struck an iceberg and sunk completely
+                        within 3 hours. Within the first hour, lifeboats were dispatched. Only about 1/3 of passengers
+                        survived.
+                    </p>
+
+
+
+
+
+
+                    <div class="scene1-stats">
+                        <div class="stat-card total-passengers">
+                            <div class="stat-number" id="total-passengers">891</div>
+                            <div class="stat-label">Total Passengers</div>
+                        </div>
+                        <div class="stat-card red">
+                            <div class="stat-number" id="survived-count">342</div>
+                            <div class="stat-label">Survived</div>
+                        </div>
+                        <div class="stat-card rate">
+                            <div class="stat-number" id="survival-rate">38.4%</div>
+                            <div class="stat-label">Survival Rate</div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                    <div class="annotation-box">
+                        <p class="annotation-text">About 1/3 of passengers didn't make it.</p>
+                    </div>
+                </div>
+
+                <div class="scene-nav">
+                    <button class="btn btn--primary" id="scene1-next">
+                        Next: Passengers by Class
+                    </button>
+                </div>
+            </section>
+
+            <!-- Scene 2 about class, who do you think fared better, higher class or lower class... hmm -->
+            <section id="scene-2" class="scene">
+                <div class="scene-content">
+                    <h2 class="scene-title">Scene 2: Class stats</h2>
+                    <p class="scene-description">
+                        There is a noticable difference of survivability based on class standings. First class
+                        passengers had higher survival rates and were of fewer number than third class passengers.
+                    </p>
+
+                    <div id="class-chart" class="chart-container"></div>
+
+                    <div class="annotation-box">
+                        <p class="annotation-text">Did you have money? Pay for a good fare? You were ~3x more likely to have
+                            survived than a 3rd class seafarer.</p>
+                    </div>
+                </div>
+
+                <div class="scene-nav">
+                    <button class="btn prevnext" id="scene2-prev">← Previous</button>
+                    <button class="btn prevnext" id="scene2-next">Next: Passengers by demographs</button>
+                </div>
+            </section>
+
+            <!-- Scene 3 maybe do men/women, children? -->
+            <section id="scene-3" class="scene">
+                <div class="scene-content">
+                    <h2 class="scene-title">Scene 3: Demographics</h2>
+                    <p class="scene-description">
+                        Women and children were more likely to have survived than men. Although the odds were much
+                        better, the situation remained grim for all, with tragedy and trauma to leave an impression on those who survived.
+                    </p>
+
+                    <div id="demographics-chart" class="chart-container"></div>
+
+                    <div class="annotation-box">
+                        <p class="annotation-text">About 3 out of 4 women survived, half of all children survived, and 1 out of 5 men survived.</p>
+                    </div>
+                </div>
+
+                <!-- fix button colors? don't know, not showing..-->
+                <div class="scene-nav">
+                    <button class="btn prevnext" id="scene3-prev">← Previous</button>
+                    <button class="btn prevnext" id="scene3-next">Next: Interactive Scatterplot</button>
+                </div>
+            </section>
+
+            <!-- Scene 4 this will be where user can interact and revisit the story how they want-->
+            <section id="scene-4" class="scene">
+                <div class="scene-content">
+                    <h2 class="scene-title">Explore the stats</h2>
+                    <p class="scene-description">
+                        You may explore each person's fate and background in this scatterplot. Remember, each person
+                        here existed at one point in life. A sombering moment of reflection!
+                    </p>
+
+                    <div class="controls-panel">
+                        <div class="filter-group">
+                            <label class="filter-label">Filter by:</label>
+                            <div class="filter-buttons">
+                                <button class="filter-btn active" data-filter="all">All Passengers</button>
+
+
+                                <button class="filter-btn" data-filter="survived">Survived</button>
+                                <button class="filter-btn" data-filter="died">Did Not Survive</button>
+
+
+
+
+
+                                <button class="filter-btn" data-filter="class-1">1st Class</button>
+
+                                <button class="filter-btn" data-filter="class-2">2nd Class</button>
+                                <button class="filter-btn" data-filter="class-3">3rd Class</button>
+
+                                <button class="filter-btn" data-filter="male">Male</button>
+                                <button class="filter-btn" data-filter="female">Female</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="useractionchart" class="chart-container"></div>
+
+                    <!-- INCLUDE THE CSV TABLE HERE FOR CROSS REFERENCE-->
+					<!-- https://www.kaggle.com/datasets/yasserh/titanic-dataset?resource=download -->
+                    <div id="passenger-table" class="table-container">
+                        <h3>Passengers</h3>
+                        <div class="table-wrapper">
+                            <table id="data-table" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Age</th>
+                                        <th>Sex</th>
+                                        <th>Class</th>
+                                        <th>Fare</th>
+                                        <th>Embarked</th>
+                                        <th>Survived</th>
+                                    </tr>
+                                </thead>
+                                <!-- This is difficult to see, highlight rules, add them w3-->
+                                <tbody id="table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- page was way too long, do next/prev, seemed to crash otherwise-->
+                        <div class="pagination-controls">
+                            <button class="btn prevnext" id="prev-page">← Previous</button>
+                            <span id="page-info">Page 1 of 1</span>
+                            <button class="btn prevnext" id="next-page">Next →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scene-nav">
+                    <button class="btn prevnext" id="scene4-prev">← Previous</button>
+                    <button class="btn prevnext" id="start-over">Start Over</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>CS416 Data Visualization, Narrative * Built with D3.js * RMS Titanic passenger records * <p>Dataset from Kaggle.com https://www.kaggle.com/datasets/yasserh/titanic-dataset?resource=download</p>
+        </footer>
+
+        <!-- Tooltip -->
+        <div id="tooltip" class="tooltip" style="opacity: 0;"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
